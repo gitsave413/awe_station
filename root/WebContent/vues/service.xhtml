@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Service}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Nos_services}</ui:define>
+	
+	<ui:define name="columns">
+		<p:column headerText="#{msg.libelle}" >  
+          	 <h:outputText value="#{object.libelle}" />   		               
+       	</p:column> 
+	</ui:define>
+	
+	
+	<ui:define name="groupe0">
+		<div class=" container ">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+			<div class="col-md-4">
+			
+				<h:panelGroup rendered="#{service.erreursStatut}">
+					<div class="row">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+							</div>
+							<div class="panel-body">
+								<h:outputText value="Ce #{msg.Service} existe déjà" styleClass="text-danger"/>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+					
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<p:inputText   value="#{service.field1_}" id="field_search" styleClass="form-control " placeholder="#{msg.Zone_de_recherche}"/>
+						</div>
+						
+						<h:commandButton value="#{msg.rechercher}" actionListener="#{service.search}" styleClass="pull-right btn btn-default "/>
+						
+						<br/>
+						<br/>
+					</div>
+				</h:form>	
+				
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label for="field">#{msg.libelle}</label>  
+							<p:inputText placeholder="#{msg.Tapez_un_mot}" value="#{service.editedObject.libelle}" id="field" validatorMessage="#{msg.serviceCourt}" required="true" requiredMessage="#{msg.libelle} : #{msg.chmpObligatoire}" styleClass="form-control " />
+						</div>
+						<h:messages for="field" styleClass="panel panel-default box-color"/>
+						
+						<h:commandButton rendered="#{!service.form_update_btn_state}" value="#{msg.ajouter}" actionListener="#{service.save}" styleClass="pull-right btn btn-primary "/>
+						<h:commandButton rendered="#{service.form_update_btn_state}" value="#{msg.Modifier}" actionListener="#{service.update}" styleClass="pull-right btn btn-default "/> 
+						<br/>
+						<br/>
+					</div>
+				</h:form>
+			</div> 
+		  
+		  <div class="col-md-2"/>
+			 		  
+		  <div class="col-md-6">
+		  	 <ui:param name="controler" value="#{service}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+	</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

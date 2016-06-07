@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="awe_service">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="business_project.jar" deploy-path="/" handle="module:/resource/business_project/business_project">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="entites_project.jar" deploy-path="/lib" handle="module:/resource/entites_project/entites_project">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="root.war" deploy-path="/" handle="module:/resource/root/root">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

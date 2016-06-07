@@ -1,0 +1,170 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+	<link href="../resources/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Recus}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Enregistrer_un_vhicule}</ui:define>
+	
+	<ui:define name="groupe0">
+		<div class="container">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+		<div class="col-md-4">
+				<div class="row">
+					<h:panelGroup rendered="#{recu_v.erreursStatut}" >
+					<div class="panel panel-danger ">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+						</div>
+						<h:panelGroup rendered="#{recu_v.erreurValidation1}">
+							<div class="panel-body">
+								<h:outputText rendered="#{recu_v.erreurValidation1}" value="#{msg.msg_validation1}" styleClass="text-danger"/>
+							</div>
+						</h:panelGroup>
+						
+						<h:panelGroup rendered="#{recu_v.erreurValidation2}">
+					 		<div class="panel-body">
+								<h:outputText  value="#{msg.msg_validation2}" styleClass="text-danger"/>
+							</div>
+						</h:panelGroup>
+					</div>
+					</h:panelGroup>
+				</div>
+				<div class="row">
+						<h:form>
+							<div class="form-group">
+								<label for="immatriculation">#{msg.Immatriculation}</label> 
+								<div class="input-group">
+									<p:inputText value="#{recu_v.editedObject.vehicule.libelle}" disabled="true" id="immatriculation" styleClass="form-control" placeholder="#{msg.Choisissez_l_immatriculation_du_vhicule}"/>
+									
+									<span class="input-group-btn">
+										<h:commandButton disabled="#{recu_v.editedObject.vehicule != null}" value="..." action="#{recu_v.goSelection}" title="#{msg.Naviguer_vers_le_vhicule}" styleClass="btn btn-default" >
+											<f:param name="cible" value="vehicule"></f:param>
+										</h:commandButton>
+									</span>
+								</div>
+							</div> 
+							<h:panelGroup rendered="#{recu_v.editedObject.vehicule.categorie != null}">
+								<div class="form-group">
+									<label>#{msg.categorie}</label> 
+									<h:outputText value="#{recu_v.editedObject.vehicule.categorie.libelle}" styleClass="form-control" />
+								</div>
+							</h:panelGroup>
+						
+							<h:commandButton rendered="#{!recu_v.show}" value="#{msg.Valider}" action="#{recu_v.valider1}" styleClass="pull-right btn btn-primary"/> 
+							
+						</h:form>
+						<h:form rendered="#{recu_v.show}"> 
+						
+						<div class="form-group">
+							<label for="service">#{msg.Service}</label>  
+							
+							<div class="input-group">
+								<p:inputText disabled="true" value="#{recu_v.ligneRecu.catService.service.libelle}" id="service" styleClass="form-control" placeholder="#{msg.Choisissez_le_service}"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton value="..." action="#{recu_v.goSelection}" title="#{msg.Naviguer_vers_le_service}" styleClass="btn btn-default" >
+										<f:param name="cible" value="service"/>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="travailleur">#{msg.Travailleur}</label>  
+							
+							<div class="input-group">
+								<p:inputText disabled="true" value="#{recu_v.ligneRecu.travailleur.prenom} #{recu_v.ligneRecu.travailleur.nom}" id="travaille" styleClass="form-control" placeholder="Delpi"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton value="..." action="#{recu_v.goSelection}" title="#{msg.Naviguer_vers_un_travailleur}" styleClass="btn btn-default" >
+										<f:param name="cible" value="travailleur"/>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						
+						<h:commandButton rendered="#{recu_v.editedObject.total lt 8000}" value="#{msg.Terminer}" title="#{msg.Terminer_l_opration}" action="#{recu_v.save}" styleClass="pull-right ecart_gauche btn btn-primary"/> 
+						<h:commandButton value="#{msg.ajouter}" title="#{msg.Ajouter_un_service}" action="#{recu_v.addItem}" styleClass="pull-right btn btn-default"/> 
+						<h:commandButton immediate="true" value="#{msg.Annuler}" title="#{msg.Annuler_l_opration}" action="#{recu_v.clear}" styleClass="pull-right btn btn-warning ecart_droite"/> 
+						<br/>
+						<br/>
+						<br/>
+						
+						<h:panelGroup rendered="#{recu_v.editedObject.total>=8000}">
+							<h3>#{msg.Pointage_du_travailleur}</h3>
+								<br/>
+									<div class="form-group">
+											<label>#{msg.Travailleur}</label>  
+											
+											<div class="input-group">
+												<p:inputText disabled="true" value="#{recu_v.travailleur.prenom} #{recu_v.travailleur.nom}" styleClass="form-control" placeholder="Delpi"/>
+												
+												<span class="input-group-btn">
+													<h:commandButton value="..." action="#{recu_v.goSelection}" title="#{msg.Naviguer_vers_un_travailleur}" styleClass="btn btn-default" >
+														<f:param name="cible" value="travailleur"/>
+													</h:commandButton>
+												</span>
+											</div>
+									</div>
+									<div class="form-group">
+										 <label>#{msg.prix}</label>  
+			 							 <input name="prix_o" type="number" value="500" min="500" max="50000" step="500" class="form-control" id="prix" />
+									</div>
+									
+									<h:commandButton rendered="#{recu_v.editedObject.total >= 8000}" value="#{msg.Terminer}" title="#{msg.Terminer_l_opration}" action="#{recu_v.save}" styleClass="pull-right btn btn-primary"/> 
+									<h:commandButton value="#{msg.Pointer}" title="#{msg.Fixer_le_montant_dont_bnficiera_le_travailleur}" action="#{recu_v.pointer}" styleClass="pull-right ecart_droite btn btn-default"/> 
+									
+					</h:panelGroup>
+					</h:form>
+				</div>
+		 </div>
+		<div class="col-md-2"/>
+		<div class="col-md-6">
+			<table class="table table" >
+		  	 	<thead>
+		  	 		<tr>
+		  	 			<th></th>
+			  	 		<th>#{msg.Service}</th>
+			  	 		<th>#{msg.prix} UT</th>
+			  	 		<th>#{msg.Travailleur}</th>
+			  	 		<th>#{msg.Pointage}</th>
+		  	 		</tr>
+		  	 	</thead>
+		  	 	<h:form>
+			  	 	<ui:repeat var="item" value="#{recu_v.editedObject.ligneRecu}">
+				  	 	<tr>
+				  	 		<td><p:commandButton ajax="false" actionListener="#{recu_v.removeitem(recu_v.editedObject.ligneRecu.indexOf(item))}" icon="ui-icon-trash"/></td>
+				  	 		<td >#{item.catService.service.libelle}</td>
+				  	 		<td >#{item.catService.prix}</td>
+				  	 		<td >#{item.travailleur.prenom} #{item.travailleur.nom}</td>
+				  	 		<td >#{item.pointage}</td>
+				  	 	</tr>
+			  	 	</ui:repeat>
+			  	 	<tr>
+			  	 		<td>TOTAL</td>
+			  	 		<td>#{recu_v.editedObject.total}</td>
+			  	 		<td></td>
+			  	 		<td></td>
+			  	 		<td></td>
+			  	 	</tr>
+		  	 	</h:form>
+		  	 </table>
+		</div>
+		</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

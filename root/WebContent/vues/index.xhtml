@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+	 
+			
+	<!-- mise en place du slider dans le groupe 1 -->
+	<ui:define name="titre">#{msg.awe}</ui:define>
+			
+	<ui:define name="groupe0">
+		
+		<div class="container">
+ 			 <div class="col-md-8">
+ 		 		
+ 		 		<div class="row">
+ 		 			<h2><h:outputText value="#{msg.Solde_de_l_entreprise} : #{recu.entreprise.solde}"/> </h2>
+ 		 		</div>
+		 		<div class="row">	
+		 		<h:form>
+		 			<h2><h:outputText value="Résumé des comptes" /></h2>
+					<div class="box-color panel panel-body couleur-noir">
+							 
+							<h:selectOneMenu value="#{recu.annee}" styleClass="btn btn-default ecart_droite">
+								 <f:selectItems value="#{recu.annees}" var="item" />
+							</h:selectOneMenu>
+						<h:commandButton value="#{msg.consulter}" action="#{recu.search}" styleClass="btn btn-default" />
+						
+					</div>
+					
+						<p:dataTable
+						id="tableau"
+						lazy="true"
+					    value="#{recu.datas}" 
+					    var="item" 
+						styleClass="table"
+						tableStyleClass="table box-color"
+					    	>
+							
+							<f:facet name="emptyMessage">
+								<ui:insert name="datatable-emptyMessage" >
+									#{msg.Aucune_donnees}
+								</ui:insert>
+							</f:facet>
+							<p:column headerText="Mois" >  
+					             <h:outputText value="#{item.mois}"/>
+					         </p:column> 
+					          <p:column headerText="Nre d'articles" >  
+					             <h:outputText value="#{item.nbre_article}" />   		               
+					         </p:column> 
+							<p:column headerText="Total" >  
+					             <h:outputText value= "#{item.total}"> 
+								</h:outputText> 		               
+					         </p:column> 
+					          <p:column headerText="Bénéfices" >  
+					             <h:outputText value="#{item.benefices}" />   		               
+					         </p:column>
+					          <p:column headerText="Dépenses" >  
+					             <h:outputText value="#{item.depences}" />   		               
+					         </p:column>
+					         <p:column headerText="Masse salarial" >  
+					             <h:outputText value="#{item.masse_salariale}" />   		               
+					         </p:column> 
+					         
+					         
+							</p:dataTable>
+					</h:form>
+		 		
+		 		</div>
+		 		<div class="row">
+		 		
+		 		<h2><h:outputText value="Salaire du personnel" /></h2>
+		 		<h:form>
+					<div class="box-color panel panel-body couleur-noir">
+							 
+							<h:selectOneMenu value="#{salaire.mois_}" styleClass="btn btn-default ecart_droite">
+								 <f:selectItem itemLabel="Janvier" itemValue="1"/>
+								 <f:selectItem itemLabel="Février" itemValue="2"/>
+								 <f:selectItem itemLabel="Mars" itemValue="3"/>
+								 <f:selectItem itemLabel="Avril" itemValue="4"/>
+								 <f:selectItem itemLabel="Mai" itemValue="5"/>
+								 <f:selectItem itemLabel="Juin" itemValue="6"/>
+								 <f:selectItem itemLabel="Juillet" itemValue="7"/>
+								 <f:selectItem itemLabel="Août" itemValue="8"/>
+								 <f:selectItem itemLabel="Septembre" itemValue="9"/>
+								 <f:selectItem itemLabel="Octobre" itemValue="10"/>
+								 <f:selectItem itemLabel="Novembre" itemValue="11"/>
+								 <f:selectItem itemLabel="Déembre" itemValue="12"/>
+							</h:selectOneMenu>
+							<h:selectOneMenu value="#{salaire.annee}" styleClass="btn btn-default ecart_droite">
+								 <f:selectItems value="#{recu.annees}" var="item" />
+							</h:selectOneMenu>
+						<h:commandButton value="#{msg.consulter}" action="#{salaire.search}" styleClass="btn btn-default" />
+						
+					</div>
+						<p:dataTable
+							id="tableau"
+							lazy="true"
+						    value="#{salaire.datas}" 
+						    var="item" 
+							styleClass="table"
+							tableStyleClass="table box-color"
+						    	>
+								
+								<f:facet name="emptyMessage">
+									<ui:insert name="datatable-emptyMessage" >
+										#{msg.Aucune_donnees}
+									</ui:insert>
+								</f:facet>
+								<p:column headerText="Salaire" >  
+						             <h:outputText value ="#{item.montant}"> 
+									</h:outputText> 		               
+						         </p:column> 
+						          <p:column headerText="Nom" >  
+						             <h:outputText value="#{item.humain.nom}" />   		               
+						         </p:column>
+						         <p:column headerText="Prénom" >  
+						             <h:outputText value="#{item.humain.prenom}" />   		               
+						         </p:column> 
+							</p:dataTable>
+					</h:form>
+		 		</div>
+ 			 </div>
+		</div>
+	</ui:define>
+
+</ui:composition>

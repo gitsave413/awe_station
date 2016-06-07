@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Recus}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Tous_les_recus}</ui:define>
+	
+	<ui:define name="columns">
+		<p:column headerText="#{msg.Date}" >  
+			<h:outputText value="#{object.creerLe}" />  
+       	</p:column>
+       	<p:column headerText="#{msg.Agent}" >  
+           	 <h:outputText value="#{object.agent.nom}" />   		               
+ 		</p:column> 
+ 		<p:column headerText="#{msg.Article}" > 
+ 			<h:outputText value="e" />  
+ 		</p:column>
+		<p:column headerText="#{msg.Total}" >  
+           	 <h:outputText value="#{object.total}" />   		               
+ 		</p:column> 
+	</ui:define>
+	 
+	<ui:define name="boutons">
+ 		<h:commandButton value="#{msg.Nouveau}" action="#{recu.goToAddView}" styleClass="btn btn-default sans-border-radius" title="#{msg.Creer_un_nouveau_recu}"/>
+	</ui:define>
+	
+	<ui:define name="groupe0">
+		<div class=" container couleur-fond">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+		
+		  <div class="col-md-12">
+		  	 <ui:param name="controler" value="#{recu}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+		</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

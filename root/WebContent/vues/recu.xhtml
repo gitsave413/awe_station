@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Nouveau_recu}</ui:define>
+  	
+	<ui:define name="groupe0">
+		<div class="container">
+	 			 <br /><br /><br /> 
+	 		<div class="row text-center">
+	 			<h1>Choisissez le type de reçu</h1>
+	 			<br /><br /><br />	
+	 			<div class="col-md-2"/>
+	 			
+	 			
+				<div class="col-md-4">
+					<h:link outcome="/vues/liste_recu_v.xhtml?faces-redirect=true" title="Véhicule">
+		                <span class="thumbnail box-color">
+		                    <h:graphicImage library="images" name="4*41.png"  />
+		                </span>
+	                </h:link>
+				</div>	
+				<div class="col-md-4">
+					<h:link outcome="/vues/liste_recu_o.xhtml?faces-redirect=true" title="Objet">
+		                <span class="thumbnail box-color">
+		                    <h:graphicImage library="images" name="bloc3.gif"  />
+		                </span>
+	                </h:link>
+				</div>	 
+				<div class="col-md-2"/>
+			</div>
+		  
+		</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

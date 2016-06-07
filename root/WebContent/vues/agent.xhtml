@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	 			
+	<link href="../../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Agent}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Agent}</ui:define>
+	
+	<ui:define name="columns">
+		<p:column headerText="#{msg.nom}" >  
+          	 <h:outputText value="#{object.nom}" />   		               
+       	</p:column> 
+       	<p:column headerText="#{msg.prenom}" >  
+          	 <h:outputText value="#{object.prenom}" />   		               
+       	</p:column> 
+       	<p:column headerText="#{msg.telephone}" >  
+          	 <h:outputText value="#{object.telephone}" />   		               
+       	</p:column> 
+	</ui:define>
+	
+	
+	<ui:define name="groupe0">
+		<div class=" container couleur-fond">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+			<div class="col-md-4">
+				<p class="text-justify"> 
+				</p>
+					
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<p:inputText   value="#{agent.field1_}" id="field_search" styleClass="form-control " placeholder="#{msg.Tapez_nom_rchrchr}"/>
+						</div>
+						
+						<h:commandButton value="#{msg.rechercher}" actionListener="#{agent.search}" styleClass="pull-right btn btn-default "/>
+						<h:commandButton value="#{agent.title}" styleClass="btn btn-primary  ecart_droite" actionListener="#{agent.aff}" immediate="true"/>
+						
+						<br/>
+						<br/>
+					</div>
+				</h:form>	
+				
+				<h:form rendered="#{agent.show}">
+					<div class="row">
+						<div class="form-group">
+							<label for="nom">#{msg.nom}</label>  
+							<p:inputText placeholder="#{msg.Tapez_votre_nom}" validatorMessage="#{msg.nomCourt}" required="true" requiredMessage="#{msg.nom} : #{msg.chmpObligatoire}" styleClass="form-control " id="nom" value="#{agent.editedObject.nom}" />
+						</div>
+						<h:messages for="nom" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group">
+							<label for="prenom">#{msg.prenom}</label>
+							 <p:inputText placeholder="#{msg.Tapez_votre_prnom}" validatorMessage="#{msg.prenom} #{msg.incorrecte}" required="true" requiredMessage="#{msg.prenom} : #{msg.chmpObligatoire}" styleClass="form-control " id="prenom" value="#{agent.editedObject.prenom}" />
+						</div>
+						<h:messages for="prenom" styleClass="panel panel-default box-color"/> 
+						
+						<div class="form-group">
+							 <label for="tel">#{msg.telephone}</label>  
+							<p:inputMask placeholder="068893071" mask="99-999-99-99" value="#{agent.editedObject.telephone}" id="tel" required="true" requiredMessage="#{msg.Tapr_num_correcte}" styleClass="form-control " />
+						</div>
+						<h:messages for="tel" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group ecart_haut">
+							<label for="pseudo">#{msg.pseudo}</label> 
+							<p:inputText placeholder="#{msg.Entrer_votre_pseudonyme}" styleClass="form-control " required="true" requiredMessage="#{msg.pseudo} : #{msg.chmpObligatoire}" id="pseudo" value="#{agent.editedObject.pseudo}" validatorMessage="#{msg.pseudoCour}" />
+						</div>
+						<h:messages for="pseudo" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group">
+							<label for="motCle">#{msg.motPasse}</label>
+							<h:inputSecret required="true" requiredMessage="#{msg.motPasse} : #{msg.chmpObligatoire}" validatorMessage="#{msg.motPasse} #{msg.incorrecte6}" styleClass="form-control " id="motCle" value="#{agent.editedObject.pwd}" />
+						</div>
+						<h:messages for="motCle" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group">
+							<label for="confirmPass">#{msg.Mot_de_passe_de_confirmation}</label>
+							<h:inputSecret required="true" requiredMessage="#{msg.Mot_de_passe_de_confirmation} : #{msg.chmpObligatoire}" validatorMessage="#{msg.Mot_de_passe_de_confirmation} #{msg.incorrecte6}" styleClass="form-control " id="confirmPass" value="#{agent.confirme_pwd}" />
+						</div>
+						<h:messages for="confirmPass" styleClass="panel panel-default box-color"/>
+						 
+						
+						<h:commandButton value="#{msg.ajouter}" actionListener="#{agent.save}" styleClass="btn btn-primary  ecart_droite"/> 
+						<br/>
+						<br/>
+					</div>
+				</h:form>
+			</div>
+  			
+  			<div class="col-md-2"/>
+			 		  
+		  <div class="col-md-6">
+		  	 <ui:param name="controler" value="#{agent}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+	</div>
+			<br />
+	</ui:define>	
+	 
+</ui:composition>

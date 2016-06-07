@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Lignes_recu}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Connatre_le_dtail_du_reu}</ui:define>
+	
+	<ui:define name="groupe0">
+		<div class="container">
+			<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+				<div class="col-md-5">
+				<div class="row">
+					<div class="panel panel-default couleur-noir ecart_interne5">
+						 <h2>#{msg.Immatriculation} : #{recu_v.selectedObject.vehicule.libelle}</h2>
+						 <h2>#{msg.categorie} : #{recu_v.selectedObject.vehicule.categorie.libelle}</h2>
+					</div>
+					
+					 <br /><br /><br />
+					<h:form>
+						<h:commandButton  value="#{msg.precedent}" action="#{recu_v.goBack}" styleClass="btn btn-default"/>
+					</h:form>
+				</div>	
+					 
+					
+			 </div>
+			 <div class="col-md-1"/>
+			<div class="col-md-6">
+				<table class="table table" >
+			  	 	<thead>
+			  	 		<tr>
+				  	 		<th>#{msg.Service}</th>
+				  	 		<th>#{msg.prix} UT</th>
+				  	 		<th>#{msg.Travailleur}</th>
+				  	 		<th>#{msg.Pointage}</th>
+			  	 		</tr>
+			  	 	</thead>
+			  	 	<h:form>
+				  	 	<ui:repeat var="item" value="#{recu_v.selectedObject.ligneRecu}">
+					  	 	<tr>
+					  	 		<td >#{item.catService.service.libelle}</td>
+					  	 		<td >#{item.catService.prix}</td>
+					  	 		<td >#{item.travailleur.prenom} #{item.travailleur.nom}</td>
+					  	 		<td >#{item.pointage}</td>
+					  	 	</tr>
+				  	 	</ui:repeat>
+				  	 	<tr>
+				  	 		<td>TOTAL</td>
+				  	 		<td>#{recu_v.selectedObject.total}</td>
+				  	 		<td></td>
+				  	 		<td></td>
+				  	 	</tr>
+			  	 	</h:form>
+			  	 </table>
+			</div>
+		</div>
+	</ui:define>	
+
+</ui:composition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   
+    <persistence-unit name="awe-service-persistence-unit">
+    
+    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/ideaDS</jta-data-source>
+		<!-- <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source> -->
+		
+		<class>cg.beylhond.soft.entite.Agent</class>
+		<class>cg.beylhond.soft.entite.Article</class>
+		<class>cg.beylhond.soft.entite.CalculBean</class>
+		<class>cg.beylhond.soft.entite.CatService</class>
+		<class>cg.beylhond.soft.entite.Categorie</class>
+		<class>cg.beylhond.soft.entite.ClasseMere</class>
+		<class>cg.beylhond.soft.entite.Depense</class>
+		<class>cg.beylhond.soft.entite.Entreprise</class>
+		<class>cg.beylhond.soft.entite.Etat</class>
+		<class>cg.beylhond.soft.entite.Humain</class>
+		<class>cg.beylhond.soft.entite.LibelleObjet</class>
+		<class>cg.beylhond.soft.entite.LigneRecu</class>
+		<class>cg.beylhond.soft.entite.Objet</class>
+		<class>cg.beylhond.soft.entite.Recu</class>
+		<class>cg.beylhond.soft.entite.RecuObjet</class>
+		<class>cg.beylhond.soft.entite.RecuVehicule</class>
+		<class>cg.beylhond.soft.entite.Role</class>
+		<class>cg.beylhond.soft.entite.Salaire</class>
+		<class>cg.beylhond.soft.entite.Service</class>
+		<class>cg.beylhond.soft.entite.Taille</class>
+		<class>cg.beylhond.soft.entite.Travailleur</class>
+		<class>cg.beylhond.soft.entite.Vehicule</class>
+        
+		
+        <!-- <properties>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="delphin"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhupdate06/idea_db"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+        </properties> -->
+		
+		<properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="false"/> 
+        </properties>
+        
+    </persistence-unit>
+</persistence>

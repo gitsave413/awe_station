@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+	<h:head>
+		<link href="../resources/style/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="../resources/style/core.css" rel="stylesheet" type="text/css" />
+	</h:head>
+<body>
+		<div class="container">
+			<div class="col-md-4">
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label for="field">#{msg.libelle}</label>  
+							<p:inputText value="#{service.selectedObject.libelle}" id="field" validatorMessage="#{msg.serviceCourt}" required="true" requiredMessage="#{msg.libelle} : #{msg.chmpObligatoire}" styleClass="form-control " />
+						</div>
+						<h:messages for="field" styleClass="text-danger panel panel-default box-color"/>
+						
+						<p:commandButton ajax="false" value="#{msg.Modifier}" action="#{service.update}" styleClass="pull-right btn btn-primary "/> 
+						<p:commandButton value="#{msg.Terminer}" actionListener="#{service.closeDialog}" styleClass="pull-right btn btn-warning ecart_droite"/> 
+					</div>
+				</h:form>
+			</div> 
+		</div>
+</body>
+</html>

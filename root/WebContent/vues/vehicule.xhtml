@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Vehicule}</ui:define>
+	
+	<ui:define name="titre-entete">Véhicules</ui:define>
+	
+	<ui:define name="columns">
+		<p:column headerText="#{msg.Immatriculation}" >  
+          	 <h:outputText value="#{object.libelle}" />   		               
+       	</p:column>
+       	<p:column headerText="#{msg.categorie}" >  
+          	 <h:outputText value="#{object.categorie.libelle}" />   		               
+       	</p:column>  
+	</ui:define>
+	
+	
+	<ui:define name="groupe0">
+		<div class=" container couleur-fond">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+			<div class="col-md-4">
+				<h:panelGroup rendered="#{service.erreursStatut}">
+					<div class="row">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+							</div>
+							<div class="panel-body">
+								<h:outputText value="Cette catégorie de véhicule existe déjà" styleClass="text-danger"/>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<p:inputText   value="#{vehicule.field1_}" id="field_search" styleClass="form-control " placeholder="#{msg.Zone_de_recherche}"/>
+						</div>
+						
+						<h:commandButton value="#{msg.rechercher}" actionListener="#{vehicule.search}" styleClass="pull-right btn btn-default "/>
+						
+						<br/>
+						<br/>
+					</div>
+				</h:form>	
+				
+				<div class="row">
+					<h:panelGroup rendered="#{vehicule.erreursStatut}">
+						<div class="panel panel-danger ">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+							</div>
+							<div class="panel-body">
+								<h:outputText value="#{msg.Veillez_selectionner_la_catgorie_du_vhicule}" styleClass="text-danger"/>
+							</div>
+						</div>
+					</h:panelGroup>
+				</div>
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label for="vehicule">#{msg.Immatriculation}</label> 
+							<p:inputText value="#{vehicule.editedObject.libelle}" validatorMessage="#{msg.Immatriculation} : #{msg.incorrecte}" placeholder="#{msg.Immatriculation}"  id="vehicule" required="true" requiredMessage="#{msg.Immatriculation} : #{msg.chmpObligatoire}" styleClass="form-control" />
+						</div>
+						<h:messages for="vehicule" styleClass="panel panel-default erreur_backhround"/>
+						
+						<h3><h:outputText value="Immatriculations trouvées" rendered="#{vehicule.doublures.size() > 0}"/></h3>
+						<div class="list-group couleur-noir">
+							<ui:repeat var="item" value="#{vehicule.doublures}">
+								<div class="list-group-item">
+									#{item.libelle} - #{item.categorie.libelle}
+								</div>
+							</ui:repeat>
+						</div>
+					 		
+						<div class="form-group">
+							<label for="categorie">#{msg.categorie}</label> 
+							<div class="input-group">
+								<p:inputText value="#{vehicule.editedObject.categorie.libelle}" disabled="true" id="categorie" styleClass="form-control" placeholder="#{msg.Choisissez_la_cat}"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton value="..." action="#{vehicule.goSelection}" title="#{msg.Naviguer_vers_la_cat}" styleClass="btn btn-default" >
+										<f:param name="cible" value="categorie"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div> 
+							
+						<h:commandButton value="#{msg.ajouter}" action="#{vehicule.save}" styleClass="pull-right btn btn-primary "/> 
+					</div>
+				</h:form>
+			</div>
+		  
+		  <div class="col-md-2"/>
+			 		  
+		  <div class="col-md-6">
+		  	 <ui:param name="controler" value="#{vehicule}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+	</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

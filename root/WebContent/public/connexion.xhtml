@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+
+<!-- définition d'une structure standard afin d'uniformiser les vues du site -->
+<f:view>
+	<h:head>
+
+		<meta http-equiv="Content-Type" content='text/html; charset=UTF-8' />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Delphin BONDONGO (Programmeur chez ACSI)" />
+		<meta name="description" content="template de base pour les pages du site" />
+
+		<!-- insertion dynamique du titre -->
+
+		<title>#{msg.connexion}</title>
+
+		<!-- insertion des fichiers de style -->
+
+		<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+		 	 
+		<link href="../resources/style/core.css" rel="stylesheet"
+			type="text/css" />
+
+		<!-- favicon -->
+
+		<!--<link rel="icon" type="image/png" href="favicon.png" />
+	[if IE]><link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /><![endif]-->
+
+		<!-- Section d'entete pouvant etre redéfinie  -->
+		<ui:insert name="head" />
+
+	</h:head>
+
+	<body id="login_body">
+	
+		 <f:event listener="#{loginControleur.checkErrors}" type="preRenderView"/>
+		 
+		<div class="container">
+				<div class="col-md-offset-9">
+ 					<div class="row">
+						<div class="col-md-12">
+								 
+							 <h:form id="form" prependId="false" onsubmit="document.getElementById('form').action='j_security_check';">
+								<div class="form-group ecart_haut">
+									<label for="j_username">#{msg.pseudo}</label> 
+									<h:inputText styleClass="form-control" id="j_username" value="#{loginControleur.editedObject.pseudo}"/>
+								</div>
+								
+								<div class="form-group">
+									<label for="j_password">#{msg.motPasse}</label>
+									<h:inputSecret styleClass="form-control" id="j_password" value="#{loginControleur.editedObject.pwd}"/>	
+								</div>
+								
+								<h:panelGroup rendered="#{loginControleur.erreursStatut}">
+									<h:outputText value="#{msg.Echd_authentification}" styleClass="panel panel-default erreur_backhround ecart_interne5"/>
+								</h:panelGroup>
+								
+								<br /><br />
+								
+								<h:commandButton action="#{loginControleur.login}" value="#{msg.connexion}" styleClass="btn btn-primary btn-block"/>
+								
+							</h:form>
+							
+							<br /><br />
+							<p class="color_awe">A.W.E STATION SERVICE : Lavage, Parking, Vente de Produits pour auto</p>
+						</div>
+					</div>
+					 
+				</div>
+				<br/><br/><br/><br/>
+		</div>
+
+		<script src="../resources/js/jquery.js"></script>
+
+		<script src="../resources/js/bootstrap.min.js"></script>
+ 
+	</body>
+</f:view>
+</html>

@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Dpenses}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Dpensons_notre_argent}</ui:define>
+	
+	<ui:define name="columns">
+		<p:column headerText="#{msg.Date}" >  
+			<h:outputText value="#{object.creerLe}" >
+				<f:convertDateTime pattern="dd-MM-yyyy"/>
+			</h:outputText>  
+       	</p:column>
+		<p:column headerText="#{msg.Montant}" >  
+          	 <h:outputText value="#{object.montant}" />   		               
+       	</p:column> 
+       	<p:column headerText="#{msg.Motif}" >  
+          	 <h:outputText value="#{object.motif}" />   		               
+       	</p:column> 
+       	<p:column headerText="#{msg.Auteur}" >  
+          	 <h:outputText value="#{object.agent.prenom} #{object.agent.nom}" />   		               
+       	</p:column> 
+	</ui:define>
+	
+	
+	<ui:define name="groupe0">
+		<div class=" container couleur-fond">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+			<div class="col-md-4">
+				<div class="row">
+					<h:panelGroup rendered="#{depense.erreursStatut}" >
+					<div class="panel panel-danger ">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+						</div>
+							<div class="panel-body">
+								<h:outputText value="#{msg.Le_solde_de_l_entreprise_est} #{depense.entreprise.solde}" styleClass="text-danger"/>
+							</div>
+					</div>
+					</h:panelGroup>
+				</div>
+					
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<p:inputText   value="#{depense.field1_}" id="field_search" styleClass="form-control " placeholder="#{msg.Tapez_le_nom_de_l_auteur}"/>
+						</div>
+						
+						<h:commandButton value="#{msg.rechercher}" actionListener="#{depense.search}" styleClass="pull-right btn btn-default "/>
+						
+						<br/>
+						<br/>
+					</div>
+				</h:form>	
+				
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label for="field">#{msg.Motif}</label>  
+							<p:inputText placeholder="#{msg.Tapez_un_mot}" value="#{depense.editedObject.motif}" id="field" validatorMessage="#{msg.Motif} #{msg.incorrecte}" required="true" requiredMessage="#{msg.Motif} : #{msg.chmpObligatoire}" styleClass="form-control " />
+						</div>
+						<h:messages for="field" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group">
+							 <label>#{msg.prix}</label>  
+ 							 <input name="prix" type="number" value="500" min="500" step="500" class="form-control"/>
+						</div>
+						
+						<h:commandButton value="#{msg.ajouter}" actionListener="#{depense.save}" styleClass="pull-right btn btn-primary "/> 
+						<br/>
+						<br/>
+					</div>
+				</h:form>
+			</div>
+		  
+		  <div class="col-md-1"/>
+			 		  
+		  <div class="col-md-7">
+		  	 <ui:param name="controler" value="#{depense}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+	</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

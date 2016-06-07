@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Recus}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Enregistrer_un_objet}</ui:define>
+	
+	<ui:define name="groupe0">
+		<div class="container">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+		<div class="col-md-4">
+			<h:panelGroup rendered="#{recu_o.erreursStatut}">
+				<div class="row">
+					<div class="panel panel-danger">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+						</div>
+						<div class="panel-body">
+							<h:outputText value="#{msg.msg_validation_recu_objet}" styleClass="text-danger"/>
+						</div>
+					</div>
+				</div>
+			</h:panelGroup> 
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label for="travailleur">#{msg.Travailleur}</label>
+							
+							<div class="input-group">
+								<p:inputText value="#{recu_o.editedObject.travailleur.prenom} #{recu_o.editedObject.travailleur.nom}" disabled="true"  id="travailleur" styleClass="form-control"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton action="#{recu_o.goSelection}" value="..."  title="#{msg.Naviguer_vers_le_travailleur}" styleClass="btn btn-default " >
+										<f:param name="cible" value="travailleur"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="objet">#{msg.Objet}</label>
+							
+							<div class="input-group">
+								<p:inputText value="#{recu_o.editedObject.objet.libelle}" disabled="true"  id="objet" styleClass="form-control" placeholder="#{msg.Choisissez_un_objet}"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton action="#{recu_o.goSelection}" immediate="true" value="..."  title="#{msg.Naviguer_vers_l_objet}" styleClass="btn btn-default " >
+										<f:param name="cible" value="objet"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="taille">#{msg.taille}</label>  
+							
+							<div class="input-group">
+								<p:inputText placeholder="#{msg.Choisissez_une_taille}" value="#{recu_o.editedObject.objet.taille.libelle}" id="taille" disabled="true" styleClass="form-control " />
+								
+								<span class="input-group-btn">
+									<h:commandButton action="#{recu_o.goSelection}" value="..."  title="#{msg.Naviguer_vers_une_taille}" styleClass="btn btn-default " >
+										<f:param name="cible" value="taille"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+	 					
+	 					<div class="form-group">
+							<label for="etat">#{msg.Etat}</label>  
+							
+							<div class="input-group">
+								<p:inputText placeholder="#{msg.Choisissez_un_etat}" value="#{recu_o.editedObject.objet.etat.libelle}" id="etat" disabled="true" styleClass="form-control " />
+								
+								<span class="input-group-btn">
+									<h:commandButton action="#{recu_o.goSelection}" value="..."  title="#{msg.Naviguer_vers_un_tat}" styleClass="btn btn-default " >
+										<f:param name="cible" value="etat"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							 <label>#{msg.prix}</label>  
+ 							 <input name="prix_o" type="number" value="500" min="500" max="50000" step="500" class="form-control" id="prix" />
+						</div>
+						
+						<h:commandButton value="#{msg.Terminer}" action="#{recu_o.save}" styleClass="pull-right btn btn-primary "/> 
+						<h:commandButton immediate="true" value="#{msg.Annuler}" action="#{recu_o.clear}" styleClass="pull-right btn btn-warning ecart_droite"/> 
+					</div>
+				</h:form>
+		 </div>
+		</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

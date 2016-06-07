@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml"
+	>
+
+	<ui:define name="titre">#{msg.connexion}</ui:define>
+	<ui:define name="titre-entete">#{msg.ezando}</ui:define>
+	
+	<ui:define name="head">
+		<link href="../resources/style/bootstrap.min.css" rel="stylesheet"	type="text/css" />
+		<link href="../resources/style/core.css" rel="stylesheet" type="text/css" />
+	</ui:define>
+	
+	<ui:define name="groupe" >
+		<div class="container">
+				<div class="col-md-offset-4">
+ 					<div class="row ecart_haut25">
+ 						<br /><br />
+						<div class="col-md-5">
+							<h:graphicImage library="images" name="pneus.jpg" styleClass="img-responsive"/>
+							
+							 <h:form>
+								<br /><br />
+								
+								<div class="form-group ecart_haut">
+									<label for="pseudo">#{msg.pseudo}</label> 
+									<h:inputText styleClass="form-control" required="true" requiredMessage="#{msg.pseudo} : #{msg.chmpObligatoire}" id="pseudo" value="#{connect.editedObject.pseudo}" validatorMessage="#{msg.pseudoCour}" />
+								</div>
+								<h:messages for="pseudo" styleClass="panel panel-default erreur_backhround"/>
+								
+								<div class="form-group">
+									<label for="motCle">#{msg.motPasse}</label>
+									<h:inputSecret required="true" requiredMessage="#{msg.motPasse} : #{msg.chmpObligatoire}"  styleClass="form-control" id="motCle" value="#{connect.editedObject.pwd}" validatorMessage="#{msg.motCleCour}" />	
+								</div>
+								<h:messages for="motCle" styleClass="panel panel-default erreur_backhround"/>
+								
+								<h:panelGroup rendered="#{connect.erreursStatut}">
+									<h:outputText value="#{msg.Identifiants_invalides}" styleClass="panel panel-default erreur_backhround ecart_interne5"/>
+								</h:panelGroup>
+								
+								<br /><br />
+								
+								<h:commandButton value="#{msg.connexion}" action="#{connect.connecter}" styleClass="btn btn-primary btn-block"/>
+								
+							</h:form>
+						</div>
+					</div>
+					 
+				</div>
+				<br/><br/><br/><br/>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

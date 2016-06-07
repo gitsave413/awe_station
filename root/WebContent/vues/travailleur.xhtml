@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Les_travailleurs}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Travailleurs}</ui:define>
+	
+	<ui:define name="columns">
+		<p:column headerText="#{msg.nom}" >  
+          	 <h:outputText value="#{object.nom}" />   		               
+       	</p:column> 
+       	<p:column headerText="#{msg.prenom}" >  
+          	 <h:outputText value="#{object.prenom}" />   		               
+       	</p:column> 
+       	<p:column headerText="#{msg.telephone}" >  
+          	 <h:outputText value="#{object.telephone}" />   		               
+       	</p:column> 
+	</ui:define>
+	
+	
+	<ui:define name="groupe0">
+		<div class=" container couleur-fond">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+			<div class="col-md-4">
+				<p class="text-justify"> 
+				</p>
+					
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<p:inputText   value="#{travailleur.field1_}" id="field_search" styleClass="form-control " placeholder="#{msg.Tapez_nom_rchrchr}"/>
+						</div>
+						
+						<h:commandButton value="#{msg.rechercher}" actionListener="#{travailleur.search}" styleClass="pull-right btn btn-default "/>
+						
+						<br/>
+						<br/>
+					</div>
+				</h:form>	
+				
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label for="field">#{msg.nom}</label>  
+							<p:inputText placeholder="#{msg.Tapez_votre_nom}" value="#{travailleur.editedObject.nom}" id="field" validatorMessage="#{msg.nom} #{msg.incorrecte}" required="true" requiredMessage="#{msg.nom} : #{msg.chmpObligatoire}" styleClass="form-control " />
+						</div>
+						<h:messages for="field" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group">
+							 <label for="prenom">#{msg.prenom}</label>  
+							<p:inputText placeholder="#{msg.Tapez_votre_prnom}" value="#{travailleur.editedObject.prenom}" id="prenom"  validatorMessage="#{msg.prenom} #{msg.incorrecte}" required="true" requiredMessage="#{msg.prenom} : #{msg.chmpObligatoire}" styleClass="form-control " />
+						</div>
+						<h:messages for="prenom" styleClass="panel panel-default box-color"/>
+						
+						<div class="form-group">
+							 <label for="tel">#{msg.telephone}</label>  
+							<p:inputMask placeholder="068893071" mask="99-999-99-99" value="#{travailleur.editedObject.telephone}" id="tel" required="true" requiredMessage="#{msg.Tapr_num_correcte}" styleClass="form-control " />
+						</div>
+						<h:messages for="tel" styleClass="panel panel-default box-color"/>
+						
+						<h:commandButton rendered="#{!travailleur.form_update_btn_state}" value="#{msg.ajouter}" action="#{travailleur.save}" styleClass="pull-right btn btn-primary "/> 
+						<h:commandButton rendered="#{travailleur.form_update_btn_state}" value="#{msg.Modifier}" action="#{travailleur.update}" styleClass="pull-right btn btn-default"/>
+						<br/>
+						<br/>
+					</div>
+				</h:form>
+			</div>
+		  
+		  <div class="col-md-2"/>
+			 		  
+		  <div class="col-md-6">
+		  	 <ui:param name="controler" value="#{travailleur}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+	</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>

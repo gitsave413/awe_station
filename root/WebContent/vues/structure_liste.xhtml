@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	>
+			<div class="row">
+				<h:panelGroup rendered="#{controler.erreurSuppression}" >
+					<div class="panel panel-danger ">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_suppression}
+						</div>
+						<div class="panel-body">
+							<h:outputText value="#{msg.Veillez_selectionner_une_ligne}" styleClass="text-danger"/>
+						</div>
+					</div>
+				</h:panelGroup>
+			</div>
+			<div class="row">
+				<h:panelGroup rendered="#{controler.erreurSelection}" >
+					<div class="panel panel-danger ">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_selection}
+						</div>
+						<div class="panel-body">
+							<h:outputText value="#{msg.Commencez_par_cliquer_sur}" styleClass="text-danger"/>
+						</div>
+					</div>
+				</h:panelGroup>
+			</div>
+			<div class="row">
+				<h:panelGroup rendered="#{controler.erreurModification}" >
+					<div class="panel panel-danger ">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_modification}
+						</div>
+						<div class="panel-body">
+							<h:outputText value="#{msg.Veillez_selectionner_une_ligne}" styleClass="text-danger"/>
+						</div>
+					</div>
+				</h:panelGroup>
+			</div>
+			 
+			<div class="row">
+			<h:form>
+				<div class="box-color panel panel-body">
+					<p:commandLink rendered="false" value="#{msg.consulter}" actionListener="#{controler.showDialog}" styleClass="btn btn-default ecart_droite" title="#{msg.Affichier_les_details_d_un_recu}"/>
+		         	<!-- commandLink à supprimer en cas de non utilisation -->
+		         	
+		         	<h:commandButton rendered="#{controler.show_btn_state}" value="#{msg.consulter}" action="#{controler.showData}" styleClass="btn btn-default ecart_droite" title="#{msg.Affichier_les_details_d_un_recu}"/>
+		         	<h:commandButton rendered="#{controler.new_btn_state}" value="#{msg.Nouveau}" action="#{controler.goToAddView}" styleClass="btn btn-default ecart_droite" title="#{msg.Ajouter_une_nouvelle_ligne}"/>
+		         	<h:commandButton rendered="#{controler.selection_btn_state}" value="#{msg.Selectionner}" action="#{controler.makeChoice}" styleClass="btn btn-default ecart_droite" title="#{msg.Selectionner_une_ligne}"/>
+		            <h:commandButton rendered="#{controler.update_btn_state}" value="#{msg.Modifier}" action="#{controler.goForUpdate}" styleClass="btn btn-default ecart_droite" title="#{msg.Modifier_une_ligne}"/>
+		            <h:commandButton value="#{msg.Supprimer}" action="#{controler.delete}" styleClass="btn btn-danger ecart_droite" title="#{msg.Supprimer_une_ligne}"/>
+		        	<h:commandButton value="#{msg.Annuler}" action="#{controler.clear}" styleClass="btn btn-warning ecart_droite" title="#{msg.Vider_les_formulaires_et_masquer_les_messages_d_erreurs}"/>
+				</div>
+					<p:dataTable
+					id="tableau"
+				    value="#{controler.dataModel}" 
+				    var="object" 
+				    lazy="true"
+					paginator="true" 
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+					rows="10" 
+					rowsPerPageTemplate="10,25,50,100" 
+					selection="#{controler.selectedObject}" 
+					rowKey="#{object.id}"
+					styleClass="table"
+					tableStyleClass="table box-color"
+				    	>
+						
+						<f:facet name="emptyMessage">
+							<ui:insert name="datatable-emptyMessage" >
+								#{msg.Aucune_donnees}
+							</ui:insert>
+						</f:facet>
+						<p:column selectionMode="single" style="width:50px;text-align:left"/>
+						
+				         <ui:insert name="columns"/>
+						</p:dataTable>
+						
+					</h:form>
+				</div>
+			
+				<!-- <button class="btn btn-default" data-toggle="modal" data-target="#myModal"> Lancer la modal </button>
+						
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog couleur-noir">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+								<h4 class="modal-title" id="myModalLabel">Edition du </h4>
+							</div>
+							<div class="modal-body">
+								<h:outputText value="Id : #{controler.selectedObject.id}" />
+							</div>
+						</div> 
+					</div> 
+				</div> -->
+	
+</ui:composition>
+
+

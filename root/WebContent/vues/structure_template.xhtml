@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+
+
+<!-- définition d'une structure standard afin d'uniformiser les vues du site -->
+<f:view>
+	<h:head>
+
+		<meta http-equiv="Content-Type" content='text/html; charset=UTF-8' />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="author" content="Delphin BONDONGO (Programmeur chez ACSI)" />
+		<meta name="description" content="template de base pour les pages du site" />
+
+		<!-- insertion dynamique du titre -->
+
+		<title><ui:insert name="titre">Structure</ui:insert></title>
+
+		<!-- insertion des fichiers de style -->
+
+		<link href="../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+		 
+		<link href="../resources/style/core.css" rel="stylesheet"
+			type="text/css" />
+			
+			<link href="../resources/font-awesome/css/font-awesome.min.css"
+			rel="stylesheet" type="text/css" />
+
+		<!-- favicon -->
+
+		<!--<link rel="icon" type="image/png" href="favicon.png" />
+	[if IE]><link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /><![endif]-->
+
+		<!-- Section d'entete pouvant etre redéfinie  -->
+		<ui:insert name="head" />
+
+	</h:head>
+
+	<body id="body_">
+		
+		<!-- Menu -->
+		<h:form>
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<!-- <h:link outcome="/vues/index.xhtml?faces-redirect=true">
+						<h:graphicImage library="images"  name="moquette.jpg" width="30px" height="36px" style="margin-top:6px"/>
+					</h:link> -->
+					 
+				</div>
+					
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav ">
+						<li>
+							<h:link outcome="/vues/index.xhtml?faces-redirect=true" value="#{msg.accueil}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/agent.xhtml?faces-redirect=true" value="#{msg.Agent}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/travailleur.xhtml?faces-redirect=true" value="#{msg.Travailleur}"/>
+						</li>
+						 <li>
+							<h:link outcome="/vues/service.xhtml?faces-redirect=true" value="#{msg.Service}"/>
+						</li>
+						 <li>
+							<h:link outcome="/vues/categorie.xhtml?faces-redirect=true" value="#{msg.categorie}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/cat_service.xhtml?faces-redirect=true" value="#{msg.Fixer_prix}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/vehicule.xhtml?faces-redirect=true" value="#{msg.Vehicule}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/objet.xhtml?faces-redirect=true" value="#{msg.Objet}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/taille.xhtml?faces-redirect=true" value="#{msg.taille}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/etat.xhtml?faces-redirect=true" value="#{msg.Etat}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/recu.xhtml?faces-redirect=true" value="#{msg.Recus}"/>
+						</li>
+						<li>
+							<h:link outcome="/vues/depense.xhtml?faces-redirect=true" value="#{msg.Dpenses}"/>
+						</li>
+					</ul>
+				</div>
+				
+				<!-- /.navbar-collapse -->
+			</div>
+			</nav>
+		</h:form>
+		<!-- fin du menu-->
+		<h:panelGroup rendered="true">
+			<ui:insert name="groupe0"/> 
+		</h:panelGroup>
+			<ui:insert name="groupe"/>
+		
+		<!-- zone de scripts -->
+
+		<script src="../resources/js/jquery.js"></script>
+
+		<script src="../resources/js/bootstrap.min.js"></script>
+ 
+	</body>
+</f:view>
+</html>

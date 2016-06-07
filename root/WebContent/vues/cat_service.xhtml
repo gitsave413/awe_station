@@ -1,0 +1,118 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/vues/structure_template.xhtml">
+	
+	<link href="../../resources/font-awesome/css/font-awesome.min.css"
+			rel="stylesheet" type="text/css" />
+			
+	<link href="../../resources/style/bootstrap.min.css" rel="stylesheet"
+			type="text/css" />
+			
+	<ui:define name="titre">#{msg.Fixation_des_prix}</ui:define>
+	
+	<ui:define name="titre-entete">#{msg.Fixation_des_prix}</ui:define>
+	
+	<ui:define name="columns">
+		 <p:column headerText="#{msg.Service}" >  
+          	 <h:outputText value="#{object.service.libelle}" />   		               
+       	</p:column>
+       	<p:column headerText="#{msg.categorie}" >  
+          	 <h:outputText value="#{object.categorie.libelle}" />   		               
+       	</p:column>
+       	<p:column headerText="#{msg.prix}" >  
+          	 <h:outputText value="#{object.prix}" />   		               
+       	</p:column>
+	</ui:define>
+	
+	
+	
+	<ui:define name="groupe0">
+		<div class=" container couleur-fond">
+				<!-- inclusion d'un style de haut de page -->
+			<div class="row">
+				<ui:include src="./model_haut_page.xhtml"/>
+			</div>
+			
+			<div class="col-md-4">
+				<p class="text-justify"> 
+				</p>
+					
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<p:inputText   value="#{catService.field1_}" id="field_search" styleClass="form-control" placeholder="#{msg.Zone_de_recherche}"/>
+						</div>
+						
+						<h:commandButton value="#{msg.rechercher}" actionListener="#{catService.search}" styleClass="pull-right btn btn-default  "/>
+						
+						<br/>
+						<br/>
+						<br/>
+					</div>
+				</h:form>	
+				
+				<h:panelGroup rendered="#{catService.erreursStatut}">
+					<div class="row">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-alert"></span> #{msg.Erreur_de_validation}
+							</div>
+							<div class="panel-body">
+								<h:outputText value="#{msg.Veillez_selectionner_des_cat_serv}" styleClass="text-danger"/>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				
+				<h:form>
+					<div class="row">
+						<div class="form-group">
+							<label>#{msg.Service}</label>
+							<div class="input-group">
+								<p:inputText disabled="true" value="#{catService.editedObject.service.libelle}" id="service" styleClass="form-control  " placeholder="#{msg.Choisissez_le_service}"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton value="..." action="#{catService.goSelection}" title="#{msg.Naviguer_vers_le_service}" styleClass="btn btn-default  " >
+									<f:param name="cible" value="service"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label>#{msg.categorie}</label>  
+							<div class="input-group">
+								<p:inputText disabled="true" value="#{catService.editedObject.categorie.libelle}" id="categorie" styleClass="form-control  " placeholder="#{msg.Choisissez_la_cat}"/>
+								
+								<span class="input-group-btn">
+									<h:commandButton value="..." action="#{catService.goSelection}" title="#{msg.Naviguer_vers_la_cat}" styleClass="btn btn-default  " >
+										<f:param name="cible" value="categorie"></f:param>
+									</h:commandButton>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							 <label>#{msg.prix}</label>  
+ 							 <input name="prix_o" type="number" value="500" min="500" max="50000" step="500" class="form-control" id="prix" />
+						</div>
+				    
+						<h:commandButton rendered="#{!catService.form_update_btn_state}" value="#{msg.ajouter}" action="#{catService.save}" styleClass="pull-right btn btn-primary  "/> 
+						<h:commandButton rendered="#{catService.form_update_btn_state}" value="#{msg.Modifier}" action="#{catService.update}" styleClass="pull-right btn btn-default"/>
+					</div>
+				</h:form>
+			</div>
+			 
+		  <div class="col-md-1"/>
+			 		  
+		  <div class="col-md-7">
+		  	 <ui:param name="controler" value="#{catService}" />
+		  	<ui:include src="/vues/structure_liste.xhtml"/>
+		  </div>
+	</div>
+			<br />
+	</ui:define>	
+
+</ui:composition>
